@@ -16,6 +16,12 @@ Put this packet as the root of an instance tree in which children need the AWS r
  
 ### AWS tags
 
+Specify one or more tags for AWS resources.
+
+#### Usage
+
+AWS resource packets that are configured the apply tags, can use a shared instance of this packet. 
+This ensures that all taggable resources have the same tags.
 
 ## Bash functions
 
