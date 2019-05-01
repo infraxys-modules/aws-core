@@ -33,3 +33,4 @@ function get_ami() {
     local ami="$(echo "$ami_json" | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId')";
     echo "$ami";
 }
+
