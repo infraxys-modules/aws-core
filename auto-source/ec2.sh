@@ -1,3 +1,4 @@
+# get_instance_json_by_name: retrieve the aws cli json for a specific instance
 function get_instance_json_by_name() {
     local function_name="get_instance_json_by_name" instance_name vpc_id 
     import_args "$@";
