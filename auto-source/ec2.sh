@@ -8,6 +8,7 @@ function get_instance_json_by_name() {
     echo "$instance_json";
 }
 
+# Get the private ip address of the instance with name '$instance_name' and in the current vpc
 function get_instance_private_ip() {
     import_args "$@"; # allow to override variables
     local instance_json="$(get_instance_json_by_name --instance_name "$instance_name" --vpc_id "$(get_vpc_id)")";
