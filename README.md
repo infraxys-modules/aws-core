@@ -3,3 +3,6 @@
 ## Introduction
 
 This module contains some helper functions and packets for base AWS functionality.
+
+## Bash functions
+
