@@ -8,7 +8,7 @@ function get_instance_json_by_name() {
     echo "$instance_json";
 }
 
-# Get the private ip address of the instance with name '$instance_name' and in the current vpc
+# get_instance_private_ip: Get the private ip address of the instance with name '$instance_name' and in the current vpc
 function get_instance_private_ip() {
     import_args "$@"; # allow to override variables
     local instance_json="$(get_instance_json_by_name --instance_name "$instance_name" --vpc_id "$(get_vpc_id)")";
@@ -16,6 +16,7 @@ function get_instance_private_ip() {
     echo "$result";
 }
 
+# get_ami: retrieve the ami with the specified name or prefix
 function get_ami() {
     local function_name="get_ami" ami_name ami_name_prefix owners="self";
     import_args "$@";
