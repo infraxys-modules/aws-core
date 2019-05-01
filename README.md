@@ -8,6 +8,12 @@ This module contains some helper functions and packets for base AWS functionalit
 
 ### AWS Region
 
+Simple packet only defining variable 'aws_region'.
+ 
+#### Usage
+ 
+Put this packet as the root of an instance tree in which children need the AWS region that they live in.
+ 
 ### AWS tags
 
 
