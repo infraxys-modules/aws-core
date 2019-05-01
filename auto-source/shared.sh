@@ -31,3 +31,19 @@ function get_instance_ssh_command() {
     check_required_variables ssh_connect_username private_ip;
     echo "ssh -i /tmp/${private_ip}.pem -t $ssh_connect_username@$private_ip -k -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=60 -o LogLevel=ERROR -o PreferredAuthentications=publickey";
 }
+
+function get_bastion_public_dns() {
+    check_required_variable --variable_name bastion_name;
+
+    local cache_variable_name="bastion_public_dns_${vpc_name//-/_}";
+    local cached_value="${!cache_variable_name}";
+
+    if [ -n "$cached_value" ]; then
+        log_error "Returning cached bastion_public_dns value '$cached_value'.";
+        return "$cached_value";
+    fi;
+    local instance_json="$(get_instance_json_by_name --instance_name "$bastion_name" --vpc_id "$(get_vpc_id)")";
+    local dns="$(echo "$instance_json" | jq -r '.PublicDnsName')";
+    log_info_to_std_err "Using bastion host $dns";
+    echo "$dns";
+}

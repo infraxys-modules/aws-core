@@ -37,3 +37,12 @@ function get_ami() {
     echo "$ami";
 }
 
+function get_security_group_id() {
+    local function_name="get_security_group_id";
+    import_args "$@";
+    check_required_arguments "$function_name" security_group_name;
+
+    local json="$(aws ec2 describe-security-groups --filters "Name=group-name,Values=$security_group_name" "Name=vpc-id,Values=$(get_vpc_id)")";
+    local security_group_id="$(echo "$json" | jq -r '.SecurityGroups[0].GroupId')";
+    echo "$(clear_if_null $security_group_id)";
+}

@@ -26,32 +26,6 @@ function get_vpc_id() {
     echo "$vpc_id"; 
 }
 
-function get_bastion_public_dns() {
-    check_required_variable --variable_name bastion_name;
-
-    local cache_variable_name="bastion_public_dns_${vpc_name//-/_}";
-    local cached_value="${!cache_variable_name}";
-
-    if [ -n "$cached_value" ]; then
-        log_error "Returning cached bastion_public_dns value '$cached_value'.";
-        return "$cached_value";
-    fi;
-    local instance_json="$(get_instance_json_by_name --instance_name "$bastion_name" --vpc_id "$(get_vpc_id)")";
-    local dns="$(echo "$instance_json" | jq -r '.PublicDnsName')";
-    log_info_to_std_err "Using bastion host $dns";
-    echo "$dns";
-}
-
-function get_security_group_id() {
-    local function_name="get_security_group_id";
-    import_args "$@";
-    check_required_arguments "$function_name" security_group_name;
-
-    local json="$(aws ec2 describe-security-groups --filters "Name=group-name,Values=$security_group_name" "Name=vpc-id,Values=$(get_vpc_id)")";
-    local security_group_id="$(echo "$json" | jq -r '.SecurityGroups[0].GroupId')";
-    echo "$(clear_if_null $security_group_id)";
-}
-
 function get_subnet_id() {
     local function_name="get_subnet_id" subnet_name;
     import_args "$@";
