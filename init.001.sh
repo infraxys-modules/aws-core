@@ -36,6 +36,10 @@ append_all_files_in_dir --directory "$INFRAXYS_ROOT/variables/AWS-CREDENTIALS" -
 append_all_files_in_dir --directory "$INFRAXYS_ROOT/variables/AWS-CONFIG" --target_file ~/.aws/config --add_new_line "true";
 chmod -R 600 ~/.aws;
 
+if [ -n "$auto_connect_aws_profile_name" ]; then
+  set_aws_profile --profile_name "$auto_connect_aws_profile_name";
+fi;
+
 
 if [ "$aws_core_credentials_default_profile_or_role" == "IAM_ROLE" ]; then
     export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-"$aws_region"}";
