@@ -38,12 +38,13 @@ chmod -R 600 ~/.aws;
 
 if [ -n "$auto_connect_aws_profile_name" ]; then
   set_aws_profile --profile_name "$auto_connect_aws_profile_name";
-fi;
-
-
-if [ "$aws_core_credentials_default_profile_or_role" == "IAM_ROLE" ]; then
+elif [ -n "$aws_core_credentials_default_profile_or_role" ]; then
+  if [ "$aws_core_credentials_default_profile_or_role" == "IAM_ROLE" ]; then
     export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-"$aws_region"}";
     log_info "Using the instance profile role with AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION";
-elif [ -n "$aws_core_credentials_default_profile_or_role" ]; then
+  else
     set_aws_profile --profile_name "$aws_core_credentials_default_profile_or_role";
+  fi;
+else
+  log_info "Not setting AWS environment automatically because variable 'aws_core_credentials_default_profile_or_role' is not set."
 fi;

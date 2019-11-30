@@ -1,4 +1,8 @@
 {
   "dependencies": [
+    {
+      "git_url": "git@github.com:infraxys-modules/aws-s3.git",
+      "branch": "master"
+    }
   ]
 }
