@@ -22,13 +22,26 @@ function set_aws_profile() {
     import_args "$@";
     check_required_arguments "$function_name" profile_name;
 
-    log_info "Setting AWS_PROFILE to $profile_name and clearing other AWS-variables.";
+    log_info "Setting AWS_PROFILE to '$profile_name' and clearing other AWS-variables.";
     export AWS_PROFILE="$profile_name";
     unset AWS_SESSION_ID;
     unset AWS_DEFAULT_REGION;
     unset AWS_SECRET_ACCESS_KEY;
     unset AWS_ACCESS_KEY_ID;
-    export AWS_SDK_LOAD_CONFIG=1;
+
+    rm -f ~/.aws/cli/cache/*
+    aws sts get-caller-identity --profile $AWS_PROFILE
+    if [ -d ~/.aws/cli/cache ]; then
+        FILE=$(find ~/.aws/cli/cache/ -name "*.json")
+        if [ -n "$FILE" ]; then
+            echo "Processing file $FILE";
+            export AWS_SECRET_ACCESS_KEY="$(cat "$FILE" | jq -r '.Credentials.SecretAccessKey')";
+            export AWS_SESSION_TOKEN="$(cat "$FILE" | jq -r '.Credentials.SessionToken')";
+            export AWS_ACCESS_KEY_ID="$(cat "$FILE" | jq -r '.Credentials.AccessKeyId')";
+        fi;
+  fi;
+
+    #export AWS_SDK_LOAD_CONFIG=1;
 }
 
 mkdir ~/.aws;
