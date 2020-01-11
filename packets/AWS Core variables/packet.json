@@ -41,8 +41,8 @@
       "formOrder": 1300,
       "visibility": "ALWAYS VISIBLE",
       "writability": "ALWAYS",
-      "required": false,
-      "isPartOfKey": false,
+      "required": true,
+      "isPartOfKey": true,
       "listOfValues": "",
       "cacheMinutes": 0,
       "referenceFilter": "",
@@ -59,7 +59,7 @@
     },
     {
       "name": "aws_core_propagated_tag_list",
-      "caption": "Propagated tag list",
+      "caption": "List of map of string tags",
       "type": "byte[]",
       "formColumn": 2,
       "formOrder": 2200,
@@ -78,9 +78,9 @@
       "cloneAttribute": true,
       "autoExport": true,
       "inputPrompt": "",
-      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\ntag {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n},\ntag {\n    key \u003d \"Environment\"\n    value  \u003d \"$environment.name\"\n    propagate_at_launch \u003d true\n}\n\u003c/pre\u003e\u003c/source\u003e\n\"\u003cname\u003e\" can then be replaced in security group modules, ...",
+      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\n  {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n  },\n  {\n    key \u003d \"Environment\"\n    value  \u003d \"$environment.name\"\n    propagate_at_launch \u003d true\n  }\n\u003c/pre\u003e\u003c/source\u003e\n\"\u003cname\u003e\" can then be replaced in security group modules, ...",
       "scope": "Container",
-      "defaultValue": "tag {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n},\ntag {\n    key \u003d \"Environment\"\n    value  \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\"\n    propagate_at_launch \u003d true\n}"
+      "defaultValue": "  {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n  },\n  {\n    key \u003d \"Environment\"\n    value  \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\"\n    propagate_at_launch \u003d true\n  }"
     },
     {
       "name": "aws_core_region",
@@ -194,10 +194,6 @@
       "saveWith": "CURRENT INSTANCE",
       "isInteractive": false,
       "hideRunnerWindow": false,
-      "installPipeline": 0,
-      "deploymentPipeline": 0,
-      "removePipeline": 0,
-      "importPipeline": 0,
       "timeoutSeconds": 3600,
       "key": "",
       "menuOrder": 100,

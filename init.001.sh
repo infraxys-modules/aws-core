@@ -52,7 +52,9 @@ chmod -R 600 ~/.aws;
 if [ -n "$auto_connect_aws_profile_name" ]; then
   set_aws_profile --profile_name "$auto_connect_aws_profile_name";
 elif [ -n "$aws_core_credentials_default_profile_or_role" ]; then
-  if [ "$aws_core_credentials_default_profile_or_role" == "IAM_ROLE" ]; then
+  if [ "$no_aws_auto_login" == "1" -o "$no_aws_auto_login" == "true" ]; then
+    log_info "Variable no_aws_auto_login is $no_aws_auto_login, so not authenticating with aws_core_credentials_default_profile_or_role.";
+  elif [ "$aws_core_credentials_default_profile_or_role" == "IAM_ROLE" ]; then
     export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-"$aws_region"}";
     log_info "Using the instance profile role with AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION";
   else

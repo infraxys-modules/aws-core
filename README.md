@@ -47,7 +47,7 @@ mfa_serial = arn:aws:iam::...
 
 ### AWS Core variables
 
-This packet must exist on every container that uses this module. It contains attributes that are used by the other packets and by the roles.
+This packet contains attributes that are used by the other packets and by the roles.
  
 #### Usage
  

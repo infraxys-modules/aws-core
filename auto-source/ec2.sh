@@ -20,9 +20,11 @@ function get_instance_private_ip() {
     import_args "$@";
     check_required_arguments $function_name instance_name target_variable_name;
     local _get_instance_private_ip;
+    log_info "Retrieving the private ip of instance '$instance_name' in VPC $vpc_id $vpc_name.";
     get_instance_json_by_name --instance_name "$instance_name" --vpc_id "$vpc_id" --vpc_name "$vpc_name" \
         --target_variable_name _get_instance_private_ip;
     _get_instance_private_ip="$(echo "$_get_instance_private_ip" | jq -r '.PrivateIpAddress')";
+    [[ "" == "null" ]] && _get_instance_private_ip="";
     eval "$target_variable_name='$_get_instance_private_ip'";
 }
 
@@ -81,23 +83,27 @@ function get_security_group_id() {
 }
 
 function get_bastion_ssh_config() {
-    local function_name="get_bastion_ssh_config" vpc_id vpc_name bastion_name bastion_private_key_file ssh_username target_variable_name;
-    import_args "$@";
-    check_required_arguments "$function_name" bastion_name bastion_private_key_file ssh_username target_variable_name;
-    check_required_argument $function_name vpc_id vpc_name;
+  local function_name="get_bastion_ssh_config" vpc_id vpc_name bastion_name bastion_private_key_file ssh_username target_variable_name;
+  import_args "$@";
+  check_required_arguments "$function_name" bastion_name bastion_private_key_file ssh_username target_variable_name;
+  check_required_argument $function_name vpc_id vpc_name;
 
-    local _get_bastion_ssh_config_vpc_id="$vpc_id";
-    [[ -z "$_get_bastion_ssh_config_vpc_id" ]] && get_vpc_id --vpc_name "$vpc_name" --target_variable_name "_get_bastion_ssh_config_vpc_id";
+  local _get_bastion_ssh_config_vpc_id="$vpc_id";
+  [[ -z "$_get_bastion_ssh_config_vpc_id" ]] && get_vpc_id --vpc_name "$vpc_name" \
+        --target_variable_name "_get_bastion_ssh_config_vpc_id" --fail_if_not_found "false";
 
-  	local bastion_dns="";
-	  get_instance_public_dns --vpc_id "$_get_bastion_ssh_config_vpc_id" --instance_name "$bastion_name" --target_variable_name bastion_dns;
-	  [[ -z "$bastion_dns" ]] && log_warn "Bastion host '$bastion_name' not found in VPC '$_get_bastion_ssh_config_vpc_id'." && return;
-	  local _get_bastion_ssh_config=$(cat << EOF
+	local _get_bastion_ssh_config
+	if [ -n "$_get_bastion_ssh_config_vpc_id" ]; then
+      local _bastion_dns="";
+      get_instance_public_dns --vpc_id "$_get_bastion_ssh_config_vpc_id" --instance_name "$bastion_name" --target_variable_name _bastion_dns;
+      [[ -z "$_bastion_dns" ]] && log_warn "Bastion host '$bastion_name' not found in VPC '$_get_bastion_ssh_config_vpc_id'." && return;
+      local _get_bastion_ssh_config=$(cat << EOF
 Host $bastion_name
-    Hostname $bastion_dns
+    Hostname $_bastion_dns
     User $ssh_username
     IdentityFile "$bastion_private_key_file"
 EOF
 );
+  fi;
 	eval "$target_variable_name='$_get_bastion_ssh_config'";
 }
