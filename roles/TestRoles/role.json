@@ -1,9 +1,0 @@
-{
-  "version": "1.0",
-  "description": "Test role",
-  "guid": "github.com\\infraxys-modules\\aws-core\\master\\role\\testroles",
-  "group": "",
-  "remarks": "",
-  "requiredPackets": [],
-  "instances": []
-}

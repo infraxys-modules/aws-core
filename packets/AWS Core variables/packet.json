@@ -204,28 +204,6 @@
       "defaultValue": "    Environment \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\",\n    Name        \u003d \"\u003cname\u003e\""
     }
   ],
-  "files": [
-    {
-      "filename": "ensure_bucket.sh",
-      "includeName": "",
-      "menuCaption": "Ensure state bucket exists",
-      "directory": "",
-      "runsIndependent": false,
-      "runsParallel": false,
-      "runBeforeIndependentActions": false,
-      "parseWithVelocity": false,
-      "executable": true,
-      "saveWith": "CURRENT INSTANCE",
-      "isInteractive": false,
-      "hideRunnerWindow": false,
-      "timeoutSeconds": 3600,
-      "key": "",
-      "menuOrder": 100,
-      "menuSeparatorBefore": false,
-      "hideFromInstanceActionsMenu": false,
-      "hideFromBottomMenu": false,
-      "menuPath": ""
-    }
-  ],
+  "files": [],
   "allowedChildren": []
 }
