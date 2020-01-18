@@ -1,22 +1,9 @@
 {
   "version": "1.0",
   "description": "Test role",
-  "packetGuid": "github.com\\infraxys-modules\\aws-core\\master\\role\\testroles",
-  "keywords": "",
+  "guid": "github.com\\infraxys-modules\\aws-core\\master\\role\\testroles",
+  "group": "",
   "remarks": "",
   "requiredPackets": [],
-  "instances": [
-    {
-      "guid": "guid-50632",
-      "velocityName": "",
-      "instanceGroups": "",
-      "aws_core_credentials_default_profile_or_role": "IAM_ROLE",
-      "aws_core_environment_name": "$environment.name",
-      "aws_core_propagated_tag_list": "tag {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n},\ntag {\n    key \u003d \"Environment\"\n    value  \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\"\n    propagate_at_launch \u003d true\n}",
-      "aws_core_region": "eu-north-1",
-      "aws_core_s3_state_bucket": "blabla",
-      "aws_core_s3_state_folder": "blabla",
-      "aws_core_tag_list": "    Environment \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\",\n    Name        \u003d \"\u003cname\u003e\""
-    }
-  ]
+  "instances": []
 }

@@ -78,7 +78,7 @@
       "cloneAttribute": true,
       "autoExport": true,
       "inputPrompt": "",
-      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\n  {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n  },\n  {\n    key \u003d \"Environment\"\n    value  \u003d \"$environment.name\"\n    propagate_at_launch \u003d true\n  }\n\u003c/pre\u003e\u003c/source\u003e\n\"\u003cname\u003e\" can then be replaced in security group modules, ...",
+      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\n  {\n    key \u003d \"Name\"\n    value  \u003d \"\u0026lt;name\u0026gt;\"\n    propagate_at_launch \u003d true\n  },\n  {\n    key \u003d \"Environment\"\n    value  \u003d \"$environment.name\"\n    propagate_at_launch \u003d true\n  }\n\u003c/pre\u003e\u003c/source\u003e\n\"\u0026lt;name\u0026gt;\" can then be replaced in security group modules, ...",
       "scope": "Container",
       "defaultValue": "  {\n    key \u003d \"Name\"\n    value  \u003d \"\u003cname\u003e\"\n    propagate_at_launch \u003d true\n  },\n  {\n    key \u003d \"Environment\"\n    value  \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\"\n    propagate_at_launch \u003d true\n  }"
     },
@@ -155,6 +155,30 @@
       "defaultValue": ""
     },
     {
+      "name": "aws_core_s3_state_region",
+      "caption": "Bucket region",
+      "type": "java.lang.String",
+      "formColumn": 1,
+      "formOrder": 1350,
+      "visibility": "ALWAYS VISIBLE",
+      "writability": "ALWAYS",
+      "required": true,
+      "isPartOfKey": false,
+      "listOfValues": "us-east-1,eu-west-1,$instance.getAttribute(\"aws_core_region\")",
+      "cacheMinutes": 10,
+      "source": "DOCKER RUN",
+      "referenceFilter": "quay.io/jeroenmanders/aws-core-attribute-regions:1.0",
+      "referenceChildGuidFilter": "",
+      "newItemsAllowed": true,
+      "parseWithVelocity": true,
+      "cloneAttribute": true,
+      "autoExport": true,
+      "inputPrompt": "",
+      "tooltip": "",
+      "scope": "Container",
+      "defaultValue": "$instance.getAttribute(\"aws_core_region\")"
+    },
+    {
       "name": "aws_core_tag_list",
       "caption": "Tag list",
       "type": "byte[]",
@@ -175,7 +199,7 @@
       "cloneAttribute": true,
       "autoExport": true,
       "inputPrompt": "",
-      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\n    Environment \u003d \"production\",\n    Name        \u003d \"\u003cname\u003e\"\n\u003c/pre\u003e\u003c/source\u003e\n\"\u003cname\u003e\" can then be replaced in security groups, subnets, ...",
+      "tooltip": "\u003cp\u003eExample:\u003c/p\u003e\n\u003cpre\u003e\u003csource\u003e\n    Environment \u003d \"production\",\n    Name        \u003d \"\u0026lt;name\u0026gt;\"\n\u003c/pre\u003e\u003c/source\u003e\n\"\u0026lt;name\u0026gt;\" can then be replaced in security groups, subnets, ...",
       "scope": "Container",
       "defaultValue": "    Environment \u003d \"$instance.getAttribute(\"aws_core_environment_name\")\",\n    Name        \u003d \"\u003cname\u003e\""
     }
